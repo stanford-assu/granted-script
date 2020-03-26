@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+
+    <script>    
+    var file,
+    reader = new FileReader();
+    
+      // Upload the file to Google Drive
+      reader.onloadend = function(e) {
+        google.script.run
+          .withSuccessHandler(showMessage)
+          .getFileText(e.target.result, file.name);
+      };
+    
+      // Read the file on form submit
+      function msg() {
+        file = $('#file')[0].files[0];
+        showMessage("Uploading file..");
+        reader.readAsDataURL(file);
+      }
+    
+      function showMessage(e) {
+        $('#progress').html(e);
+      }
+    
+    </script>
+  </head>
+  <body>
+    <!-- File upload button -->
+    <input id="file" type="file">
+    <!-- Form submit button -->
+    <button onclick="msg()">Submit</button>
+    <!-- Show Progress -->
+    <p id="progress"></p>
+  </body>
+</html>
